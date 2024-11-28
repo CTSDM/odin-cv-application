@@ -6,9 +6,15 @@ import InputTextSimple from "./components/InputTextSimple.jsx";
 import { useState } from "react";
 
 function App() {
-    const [accordeonStatus, setAccordeonStatus] = useState(true);
-    function handleStatus() {
-        setAccordeonStatus(!accordeonStatus);
+    const [accordeonStatus, setAccordeonStatus] = useState({
+        profile: true,
+        experience: false,
+        education: false,
+    });
+    function handleStatus(status, toChange) {
+        const newStatus = !status[toChange];
+        console.log(status);
+        setAccordeonStatus({ ...status, [toChange]: newStatus });
     }
     return (
         <>
@@ -27,8 +33,8 @@ function App() {
             <h1>CV Generator</h1>
             <Accordeon
                 title={"Profile"}
-                status={accordeonStatus}
-                onClick={handleStatus}
+                status={accordeonStatus.profile}
+                onClick={() => handleStatus(accordeonStatus, "profile")}
             >
                 <InputTextSimple name="First Name" type="text" />
                 <InputTextSimple name="Last Name" type="text" />
@@ -39,11 +45,19 @@ function App() {
             </Accordeon>
             <Accordeon
                 title={"Experience"}
-                status={!accordeonStatus}
-                onClick={handleStatus}
+                status={accordeonStatus.experience}
+                onClick={() => handleStatus(accordeonStatus, "experience")}
             >
                 <InputTextSimple name="Work" type="text" />
                 <InputTextSimple name="Work" type="text" />
+            </Accordeon>
+            <Accordeon
+                title={"Education"}
+                status={accordeonStatus.education}
+                onClick={() => handleStatus(accordeonStatus, "education")}
+            >
+                <InputTextSimple name="Education" type="text" />
+                <InputTextSimple name="Education" type="text" />
             </Accordeon>
         </>
     );
