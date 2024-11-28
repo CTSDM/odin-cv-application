@@ -4,6 +4,7 @@ import "./App.css";
 import Accordeon from "./components/Accordeon.jsx";
 import InputTextSimple from "./components/InputTextSimple.jsx";
 import { useState } from "react";
+import { basicInformation } from "./template/basicInfo.js";
 
 function App() {
     const [accordeonStatus, setAccordeonStatus] = useState({
@@ -36,12 +37,14 @@ function App() {
                 status={accordeonStatus.profile}
                 onClick={() => handleStatus(accordeonStatus, "profile")}
             >
-                <InputTextSimple name="First Name" type="text" />
-                <InputTextSimple name="Last Name" type="text" />
-                <InputTextSimple name="Profession" type="text" />
-                <InputTextSimple name="Email" type="email" />
-                <InputTextSimple name="Phone" type="tel" />
-                <InputTextSimple name="Location" type="text" />
+                {basicInformation.map((info) => (
+                    <InputTextSimple
+                        key={info.label}
+                        name={info.name}
+                        label={info.label}
+                        type={info.type}
+                    />
+                ))}
             </Accordeon>
             <Accordeon
                 title={"Experience"}
