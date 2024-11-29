@@ -5,6 +5,7 @@ import Accordeon from "./components/Accordeon.jsx";
 import InputTextSimple from "./components/InputTextSimple.jsx";
 import { useState } from "react";
 import { basicInformation } from "./template/basicInfo.js";
+import BlockExperience from "./components/BlockExperience.jsx";
 
 function App() {
     const [accordeonStatus, setAccordeonStatus] = useState({
@@ -12,11 +13,12 @@ function App() {
         experience: false,
         education: false,
     });
-    function handleStatus(status, toChange) {
-        const newStatus = !status[toChange];
-        console.log(status);
-        setAccordeonStatus({ ...status, [toChange]: newStatus });
+
+    function handleStatus(toChange) {
+        const newStatus = !accordeonStatus[toChange];
+        setAccordeonStatus({ ...accordeonStatus, [toChange]: newStatus });
     }
+
     return (
         <>
             <div>
@@ -35,7 +37,7 @@ function App() {
             <Accordeon
                 title={"Profile"}
                 status={accordeonStatus.profile}
-                onClick={() => handleStatus(accordeonStatus, "profile")}
+                onClick={() => handleStatus("profile")}
             >
                 {basicInformation.map((info) => (
                     <InputTextSimple
@@ -49,18 +51,16 @@ function App() {
             <Accordeon
                 title={"Experience"}
                 status={accordeonStatus.experience}
-                onClick={() => handleStatus(accordeonStatus, "experience")}
+                onClick={() => handleStatus("experience")}
             >
-                <InputTextSimple name="Work" type="text" />
-                <InputTextSimple name="Work" type="text" />
+                <BlockExperience name={"Experience"} type={"career"} />
             </Accordeon>
             <Accordeon
                 title={"Education"}
                 status={accordeonStatus.education}
-                onClick={() => handleStatus(accordeonStatus, "education")}
+                onClick={() => handleStatus("education")}
             >
-                <InputTextSimple name="Education" type="text" />
-                <InputTextSimple name="Education" type="text" />
+                <BlockExperience name={"Education"} type={"education"} />
             </Accordeon>
         </>
     );

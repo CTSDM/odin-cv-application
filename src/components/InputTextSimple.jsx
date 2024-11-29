@@ -4,7 +4,7 @@ export default function Input({ name, type }) {
     const [value, setValue] = useState("");
 
     function handleChange(event) {
-        setValue(event.target.value);
+        setValue(event.currentTarget.value);
     }
 
     return (
