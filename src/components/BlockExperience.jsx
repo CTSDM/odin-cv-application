@@ -9,12 +9,13 @@ export default function BlockExperience({ name, type }) {
     const [entriesId, setEntries] = useState(Object.keys(experience[type]));
     const [expInfo, setExpInfo] = useState(experience);
     const [formTarget, setFormTarget] = useState(entriesId[0]);
+    const [editingStatus, setEditingStatus] = useState(false);
 
     function addEntry() {
         const newId = nanoid();
         setEntries([...entriesId, newId]);
         // we should create a template for adding new data
-        addExpInfo(type, { institution: "", title: "", skills: "" }, newId);
+        addExpInfo(type, { institution: "xd", title: "", skills: "" }, newId);
     }
 
     function deleteEntry(e) {
@@ -30,6 +31,7 @@ export default function BlockExperience({ name, type }) {
             title: info.title,
             skills: info.skills,
         };
+        setEditingStatus(false);
         setExpInfo({ ...expInfo, [type]: { ...expInfo[type], [id]: newInfo } });
     }
 
@@ -50,7 +52,14 @@ export default function BlockExperience({ name, type }) {
                     handleEdit={handleEditEntry}
                 />
             ))}
-            <FormExperience info={expInfo[type][formTarget]} />
+            <FormExperience
+                info={expInfo[type][formTarget]}
+                editing={editingStatus}
+                onClickChangeEditing={() => setEditingStatus(true)}
+                id={nanoid()}
+                type={type}
+                handleGoBack={() => setEditingStatus(false)}
+            />
         </div>
     );
 }
