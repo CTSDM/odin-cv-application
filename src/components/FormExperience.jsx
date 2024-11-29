@@ -2,12 +2,11 @@ import { useState } from "react";
 
 export default function FormExperience({
     info,
-    updateTitle,
+    updateExperience,
     editing,
     onClickChangeEditing,
     handleGoBack,
     type,
-    id,
 }) {
     const [infoState, setInfoState] = useState(info);
 
@@ -30,13 +29,13 @@ export default function FormExperience({
     const infoToSet = editing ? infoState : info;
 
     return (
-        <div id={id}>
+        <div>
             <div>
                 <button type="button" onClick={handleGoBack}>
                     Go back Arrow
                 </button>
             </div>
-            <form onClick={onClickChangeEditing}>
+            <form onClick={onClickChangeEditing} onSubmit={updateExperience}>
                 <label htmlFor="institution">Institution:</label>
                 <input
                     type="text"
@@ -66,9 +65,7 @@ export default function FormExperience({
                     onClick={onClick}
                     className={type}
                 />
-                <button type="button" onClick={updateTitle}>
-                    Update
-                </button>
+                <button type="submit">Update</button>
             </form>
         </div>
     );

@@ -40,6 +40,18 @@ export default function BlockExperience({ name, type }) {
         setFormTarget(parentBox.id);
     }
 
+    function handleUpdateExp(e) {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const formData = new FormData(form);
+        const formProps = Object.fromEntries(formData);
+        setExpInfo({
+            ...expInfo,
+            [type]: { ...expInfo[type], [formTarget]: formProps },
+        });
+        setEditingStatus(false);
+    }
+
     return (
         <div>
             <ButtonAdd name={`New ${name}`} onClick={addEntry} />
@@ -47,7 +59,7 @@ export default function BlockExperience({ name, type }) {
                 <EntryCard
                     id={entryId}
                     key={entryId}
-                    name={`New ${name}`}
+                    name={expInfo[type][entryId].institution}
                     handleDelete={deleteEntry}
                     handleEdit={handleEditEntry}
                 />
@@ -56,9 +68,9 @@ export default function BlockExperience({ name, type }) {
                 info={expInfo[type][formTarget]}
                 editing={editingStatus}
                 onClickChangeEditing={() => setEditingStatus(true)}
-                id={nanoid()}
                 type={type}
                 handleGoBack={() => setEditingStatus(false)}
+                updateExperience={handleUpdateExp}
             />
         </div>
     );
