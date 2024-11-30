@@ -5,6 +5,7 @@ import { useState } from "react";
 import { basicInformation } from "./template/basicInfo.js";
 import BlockExperience from "./components/BlockExperience.jsx";
 import experience from "./template/experience.js";
+import Preview from "./components/Preview.jsx";
 
 function App() {
     const [accordeonStatus, setAccordeonStatus] = useState({
@@ -85,6 +86,15 @@ function App() {
                             updateInfo={setExpInfo}
                         />
                     </Accordeon>
+                </div>
+                <div className="outpus">
+                    <Preview
+                        dataPersonal={{ inputPersonal, basicInformation }}
+                        dataExperience={{
+                            types: ["education", "career"],
+                            expInfo,
+                        }}
+                    />
                 </div>
             </div>
         </>
