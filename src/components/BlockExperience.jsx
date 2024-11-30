@@ -3,11 +3,9 @@ import { useState } from "react";
 import EntryCard from "./EntryCard";
 import { nanoid } from "nanoid";
 import FormExperience from "./FormExperience.jsx";
-import experience from "../template/experience.js";
 
-export default function BlockExperience({ name, type }) {
-    const [entriesId, setEntries] = useState(Object.keys(experience[type]));
-    const [expInfo, setExpInfo] = useState(experience);
+export default function BlockExperience({ name, type, expInfo, updateInfo }) {
+    const [entriesId, setEntries] = useState(Object.keys(expInfo[type]));
     const [formTarget, setFormTarget] = useState(entriesId[0]);
     const [editingStatus, setEditingStatus] = useState(false);
 
@@ -32,7 +30,7 @@ export default function BlockExperience({ name, type }) {
             skills: info.skills,
         };
         setEditingStatus(false);
-        setExpInfo({ ...expInfo, [type]: { ...expInfo[type], [id]: newInfo } });
+        updateInfo({ ...expInfo, [type]: { ...expInfo[type], [id]: newInfo } });
     }
 
     function handleEditEntry(e) {
@@ -45,7 +43,7 @@ export default function BlockExperience({ name, type }) {
         const form = e.currentTarget;
         const formData = new FormData(form);
         const formProps = Object.fromEntries(formData);
-        setExpInfo({
+        updateInfo({
             ...expInfo,
             [type]: { ...expInfo[type], [formTarget]: formProps },
         });

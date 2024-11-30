@@ -4,6 +4,7 @@ import InputTextSimple from "./components/InputTextSimple.jsx";
 import { useState } from "react";
 import { basicInformation } from "./template/basicInfo.js";
 import BlockExperience from "./components/BlockExperience.jsx";
+import experience from "./template/experience.js";
 
 function App() {
     const [accordeonStatus, setAccordeonStatus] = useState({
@@ -16,6 +17,8 @@ function App() {
         const newStatus = !accordeonStatus[toChange];
         setAccordeonStatus({ ...accordeonStatus, [toChange]: newStatus });
     }
+
+    const [expInfo, setExpInfo] = useState(experience);
 
     const [inputPersonal, setInputPersonal] = useState([
         "",
@@ -63,7 +66,12 @@ function App() {
                         status={accordeonStatus.experience}
                         onClick={() => handleStatus("experience")}
                     >
-                        <BlockExperience name={"Experience"} type={"career"} />
+                        <BlockExperience
+                            name={"Experience"}
+                            type={"career"}
+                            expInfo={expInfo}
+                            updateInfo={setExpInfo}
+                        />
                     </Accordeon>
                     <Accordeon
                         title={"Education"}
@@ -73,6 +81,8 @@ function App() {
                         <BlockExperience
                             name={"Education"}
                             type={"education"}
+                            expInfo={expInfo}
+                            updateInfo={setExpInfo}
                         />
                     </Accordeon>
                 </div>
