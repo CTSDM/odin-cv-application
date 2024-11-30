@@ -1,12 +1,4 @@
-import { useState } from "react";
-
-export default function Input({ name, type }) {
-    const [value, setValue] = useState("");
-
-    function handleChange(event) {
-        setValue(event.currentTarget.value);
-    }
-
+export default function Input({ name, type, value, onChange }) {
     return (
         <>
             <label htmlFor="firstName">{name}: </label>
@@ -14,7 +6,7 @@ export default function Input({ name, type }) {
                 type={type}
                 name="firstName"
                 value={value}
-                onChange={handleChange}
+                onChange={onChange}
             />
         </>
     );

@@ -1,5 +1,3 @@
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import Accordeon from "./components/Accordeon.jsx";
 import InputTextSimple from "./components/InputTextSimple.jsx";
@@ -19,49 +17,66 @@ function App() {
         setAccordeonStatus({ ...accordeonStatus, [toChange]: newStatus });
     }
 
+    const [inputPersonal, setInputPersonal] = useState([
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+    ]);
+
+    // use of currying function!
+    function handleChange(index) {
+        return function (event) {
+            const auxValues = inputPersonal.slice();
+            auxValues[index] = event.currentTarget.value;
+            setInputPersonal(auxValues);
+        };
+    }
+
     return (
         <>
             <div>
-                <a href="https://vite.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img
-                        src={reactLogo}
-                        className="logo react"
-                        alt="React logo"
-                    />
-                </a>
+                <h1>CV Generator</h1>
             </div>
-            <h1>CV Generator</h1>
-            <Accordeon
-                title={"Profile"}
-                status={accordeonStatus.profile}
-                onClick={() => handleStatus("profile")}
-            >
-                {basicInformation.map((info) => (
-                    <InputTextSimple
-                        key={info.label}
-                        name={info.name}
-                        label={info.label}
-                        type={info.type}
-                    />
-                ))}
-            </Accordeon>
-            <Accordeon
-                title={"Experience"}
-                status={accordeonStatus.experience}
-                onClick={() => handleStatus("experience")}
-            >
-                <BlockExperience name={"Experience"} type={"career"} />
-            </Accordeon>
-            <Accordeon
-                title={"Education"}
-                status={accordeonStatus.education}
-                onClick={() => handleStatus("education")}
-            >
-                <BlockExperience name={"Education"} type={"education"} />
-            </Accordeon>
+            <div className="container">
+                <div className="inputs">
+                    <Accordeon
+                        title={"Profile"}
+                        status={accordeonStatus.profile}
+                        onClick={() => handleStatus("profile")}
+                    >
+                        {basicInformation.map((info, index) => (
+                            <InputTextSimple
+                                key={info.label}
+                                name={info.name}
+                                label={info.label}
+                                type={info.type}
+                                value={inputPersonal[index]}
+                                onChange={handleChange(index)}
+                            />
+                        ))}
+                    </Accordeon>
+                    <Accordeon
+                        title={"Experience"}
+                        status={accordeonStatus.experience}
+                        onClick={() => handleStatus("experience")}
+                    >
+                        <BlockExperience name={"Experience"} type={"career"} />
+                    </Accordeon>
+                    <Accordeon
+                        title={"Education"}
+                        status={accordeonStatus.education}
+                        onClick={() => handleStatus("education")}
+                    >
+                        <BlockExperience
+                            name={"Education"}
+                            type={"education"}
+                        />
+                    </Accordeon>
+                </div>
+            </div>
         </>
     );
 }
