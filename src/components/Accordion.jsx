@@ -15,9 +15,9 @@ export default function Accordion({ children, title, status, onClick }) {
     } else component = children;
     return (
         <div className={classes}>
-            <div className="information" onClick={onClick}>
+            <button type="button" className="information" onClick={onClick}>
                 {title}
-            </div>
+            </button>
             <div
                 className="panel"
                 style={{ display: status ? "block" : "none" }}
