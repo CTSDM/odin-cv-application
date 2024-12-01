@@ -1,6 +1,6 @@
-import "../styles/Accordeon.css";
+import "../styles/Accordion.css";
 
-export default function Accordeon({ children, title, status, onClick }) {
+export default function Accordion({ children, title, status, onClick }) {
     const statusClass = status ? "active" : "";
     const classes = `accordion ${statusClass}`;
     let component;

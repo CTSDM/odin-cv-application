@@ -1,5 +1,5 @@
 import "./App.css";
-import Accordeon from "./components/Accordeon.jsx";
+import Accordion from "./components/Accordion.jsx";
 import InputTextSimple from "./components/InputTextSimple.jsx";
 import { useState } from "react";
 import { basicInformation } from "./template/basicInfo.js";
@@ -8,15 +8,15 @@ import experience from "./template/experience.js";
 import Preview from "./components/Preview.jsx";
 
 function App() {
-    const [accordeonStatus, setAccordeonStatus] = useState({
+    const [accordionStatus, setAccordionStatus] = useState({
         profile: true,
         experience: false,
         education: false,
     });
 
     function handleStatus(toChange) {
-        const newStatus = !accordeonStatus[toChange];
-        setAccordeonStatus({ ...accordeonStatus, [toChange]: newStatus });
+        const newStatus = !accordionStatus[toChange];
+        setAccordionStatus({ ...accordionStatus, [toChange]: newStatus });
     }
 
     const [expInfo, setExpInfo] = useState(experience);
@@ -46,9 +46,9 @@ function App() {
             </div>
             <div className="container">
                 <div className="inputs">
-                    <Accordeon
+                    <Accordion
                         title={"Profile"}
-                        status={accordeonStatus.profile}
+                        status={accordionStatus.profile}
                         onClick={() => handleStatus("profile")}
                     >
                         {basicInformation.map((info, index) => (
@@ -61,10 +61,10 @@ function App() {
                                 onChange={handleChange(index)}
                             />
                         ))}
-                    </Accordeon>
-                    <Accordeon
+                    </Accordion>
+                    <Accordion
                         title={"Experience"}
-                        status={accordeonStatus.experience}
+                        status={accordionStatus.experience}
                         onClick={() => handleStatus("experience")}
                     >
                         <BlockExperience
@@ -73,10 +73,10 @@ function App() {
                             expInfo={expInfo}
                             updateInfo={setExpInfo}
                         />
-                    </Accordeon>
-                    <Accordeon
+                    </Accordion>
+                    <Accordion
                         title={"Education"}
-                        status={accordeonStatus.education}
+                        status={accordionStatus.education}
                         onClick={() => handleStatus("education")}
                     >
                         <BlockExperience
@@ -85,7 +85,7 @@ function App() {
                             expInfo={expInfo}
                             updateInfo={setExpInfo}
                         />
-                    </Accordeon>
+                    </Accordion>
                 </div>
                 <div className="outpus">
                     <Preview

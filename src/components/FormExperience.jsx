@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/FormExperience.css";
 
 export default function FormExperience({
     info,
@@ -7,6 +8,7 @@ export default function FormExperience({
     onClickChangeEditing,
     handleGoBack,
     type,
+    classValue,
 }) {
     const [infoState, setInfoState] = useState(info);
 
@@ -27,9 +29,10 @@ export default function FormExperience({
     }
 
     const infoToSet = editing ? infoState : info;
+    const className = classValue;
 
     return (
-        <div>
+        <div className={`form ${className}`}>
             <div>
                 <button type="button" onClick={handleGoBack}>
                     Go back Arrow
