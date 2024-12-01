@@ -1,12 +1,20 @@
-export default function Input({ name, type, value, onChange }) {
+export default function InputTextSimple({
+    name,
+    label,
+    type,
+    value,
+    onChange,
+    placeholder,
+}) {
     return (
         <>
-            <label htmlFor="firstName">{name}: </label>
+            <label htmlFor={label}>{name}: </label>
             <input
                 type={type}
-                name="firstName"
+                id={label}
                 value={value}
                 onChange={onChange}
+                placeholder={placeholder}
             />
         </>
     );

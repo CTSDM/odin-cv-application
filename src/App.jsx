@@ -6,6 +6,7 @@ import { basicInformation } from "./template/basicInfo.js";
 import BlockExperience from "./components/BlockExperience.jsx";
 import experience from "./template/experience.js";
 import Preview from "./components/Preview.jsx";
+import placeholders from "./template/placeholders.js";
 
 function App() {
     const [accordionStatus, setAccordionStatus] = useState({
@@ -59,6 +60,7 @@ function App() {
                                 type={info.type}
                                 value={inputPersonal[index]}
                                 onChange={handleChange(index)}
+                                placeholder={placeholders.personal[info.label]}
                             />
                         ))}
                     </Accordion>
@@ -72,6 +74,7 @@ function App() {
                             type={"career"}
                             expInfo={expInfo}
                             updateInfo={setExpInfo}
+                            placeholder={placeholders.experience.career}
                         />
                     </Accordion>
                     <Accordion
@@ -84,6 +87,7 @@ function App() {
                             type={"education"}
                             expInfo={expInfo}
                             updateInfo={setExpInfo}
+                            placeholder={placeholders.experience.education}
                         />
                     </Accordion>
                 </div>

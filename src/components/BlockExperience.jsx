@@ -4,7 +4,13 @@ import EntryCard from "./EntryCard";
 import { nanoid } from "nanoid";
 import FormExperience from "./FormExperience.jsx";
 
-export default function BlockExperience({ name, type, expInfo, updateInfo }) {
+export default function BlockExperience({
+    name,
+    type,
+    expInfo,
+    updateInfo,
+    placeholder,
+}) {
     const [entriesId, setEntries] = useState(Object.keys(expInfo[type]));
     const [formTarget, setFormTarget] = useState(entriesId[0]);
     const [editingStatus, setEditingStatus] = useState(false);
@@ -14,7 +20,15 @@ export default function BlockExperience({ name, type, expInfo, updateInfo }) {
         const newId = nanoid();
         setEntries([...entriesId, newId]);
         // we should create a template for adding new data
-        addExpInfo(type, { institution: "", title: "", skills: "" }, newId);
+        addExpInfo(
+            type,
+            {
+                institution: placeholder.institution,
+                title: placeholder.title,
+                skills: placeholder.skills,
+            },
+            newId,
+        );
         // when creating a new entry it goes directly into editing that entry
         // so we need to change the formTarget and the editingStatus
         setFormTarget(newId);
