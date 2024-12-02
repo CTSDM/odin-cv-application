@@ -23,7 +23,7 @@ export default function BlockExperience({
         addExpInfo(
             type,
             {
-                institution: placeholder.institution,
+                institution: "", //placeholder.institution,
                 title: placeholder.title,
                 skills: placeholder.skills,
             },
@@ -31,8 +31,13 @@ export default function BlockExperience({
         );
         // when creating a new entry it goes directly into editing that entry
         // so we need to change the formTarget and the editingStatus
+        // however, we don't change the editingStatus here but we do it using a fake click
+        // since the logic is built in that way
         setFormTarget(newId);
         setClassStatus([classStatus[1], classStatus[0]]);
+        const forms = document.querySelectorAll("form");
+        const form = type === "career" ? forms[0] : forms[1];
+        inputClickAndFocus(form.children[1]);
     }
 
     function deleteEntry(e) {
@@ -56,6 +61,17 @@ export default function BlockExperience({
         const parentBox = e.currentTarget.parentNode.parentNode;
         setFormTarget(parentBox.id);
         setClassStatus([classStatus[1], classStatus[0]]);
+        // we also put the focus on the first input
+        const forms = document.querySelectorAll("form");
+        const form = type === "career" ? forms[0] : forms[1];
+        inputClickAndFocus(form.children[1]);
+    }
+
+    function inputClickAndFocus(input) {
+        setTimeout(() => {
+            input.click();
+            input.focus();
+        }, 50);
     }
 
     function handleUpdateExp(e) {
@@ -72,7 +88,7 @@ export default function BlockExperience({
     }
 
     function handleGoBack() {
-        setEditingStatus(true);
+        setEditingStatus(false);
         setClassStatus([classStatus[1], classStatus[0]]);
     }
 
@@ -95,7 +111,9 @@ export default function BlockExperience({
             <FormExperience
                 info={expInfo[type][formTarget]}
                 editing={editingStatus}
-                onClickChangeEditing={() => setEditingStatus(true)}
+                onClickChangeEditing={() => {
+                    setEditingStatus(true);
+                }}
                 type={type}
                 handleGoBack={handleGoBack}
                 updateExperience={handleUpdateExp}

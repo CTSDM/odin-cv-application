@@ -47,6 +47,7 @@ export default function FormExperience({
                     onChange={onChange}
                     onClick={onClick}
                     className={type}
+                    required
                 />
                 <label htmlFor="title">Title:</label>
                 <input
@@ -56,6 +57,7 @@ export default function FormExperience({
                     onChange={onChange}
                     onClick={onClick}
                     className={type}
+                    required
                 />
                 <label htmlFor="skills">Skills:</label>
                 <textarea
@@ -67,8 +69,11 @@ export default function FormExperience({
                     onChange={onChange}
                     onClick={onClick}
                     className={type}
+                    required
                 />
-                <button type="submit">Update</button>
+                <button type="submit" onClick={onClickChangeEditing}>
+                    Update
+                </button>
             </form>
         </div>
     );
