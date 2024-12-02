@@ -1,22 +1,59 @@
+import { nanoid } from "nanoid";
+import { Fragment } from "react";
+
 export default function Experience({ data }) {
     return (
         <div>
-            <h3>Right-side data as plain text</h3>
             {data.types.map((type) => {
                 const pairsExp = Object.entries(data.expInfo[type]);
+                let skillBlock, keys;
                 return (
-                    <div key={type}>
+                    <Fragment key={type}>
+                        <div>
+                            <span>{type[0].toUpperCase() + type.slice(1)}</span>
+                            <div>-------------------------------------</div>
+                        </div>
                         {pairsExp.map((pair) => {
-                            const labels = Object.keys(pair[1]);
-                            return labels.map((label, index) => {
-                                return (
-                                    <span key={index}>
-                                        {label}: {pair[1][label]}
-                                    </span>
-                                );
-                            });
+                            if (type === "career") {
+                                skillBlock = pair[1].skills.split("\n");
+                                keys = skillBlock.map(() => nanoid());
+                            }
+                            return (
+                                <div
+                                    key={`${type}-${pair[1].institution}-${pair[1].title}`}
+                                >
+                                    <div>
+                                        {type === "career" ? (
+                                            <>
+                                                <span>{pair[1].title}</span>
+                                                {", "}
+                                                <span>
+                                                    {pair[1].institution}
+                                                </span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <span>
+                                                    {pair[1].institution}
+                                                </span>
+                                                {", "}
+                                                <span>{pair[1].title}</span>
+                                            </>
+                                        )}
+                                    </div>
+                                    <ul>
+                                        {skillBlock === undefined
+                                            ? null
+                                            : skillBlock.map((entry, index) => (
+                                                  <li key={keys[index]}>
+                                                      {entry}
+                                                  </li>
+                                              ))}
+                                    </ul>
+                                </div>
+                            );
                         })}
-                    </div>
+                    </Fragment>
                 );
             })}
         </div>

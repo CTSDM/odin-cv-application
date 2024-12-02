@@ -22,20 +22,20 @@ function App() {
 
     const [expInfo, setExpInfo] = useState(experience);
 
-    const [inputPersonal, setInputPersonal] = useState([
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-    ]);
+    const [inputPersonal, setInputPersonal] = useState(() => {
+        const auxObj = {};
+        basicInformation.forEach(
+            (entry) =>
+                (auxObj[entry.label] = placeholders.personal[entry.label]),
+        );
+        return auxObj;
+    });
 
     // use of currying function!
-    function handleChange(index) {
+    function handleChange(fieldname) {
         return function (event) {
-            const auxValues = inputPersonal.slice();
-            auxValues[index] = event.currentTarget.value;
+            const auxValues = { ...inputPersonal };
+            auxValues[fieldname] = event.currentTarget.value;
             setInputPersonal(auxValues);
         };
     }
@@ -52,14 +52,12 @@ function App() {
                         status={accordionStatus.profile}
                         onClick={() => handleStatus("profile")}
                     >
-                        {basicInformation.map((info, index) => (
+                        {basicInformation.map((info) => (
                             <InputTextSimple
                                 key={info.label}
-                                name={info.name}
-                                label={info.label}
                                 type={info.type}
-                                value={inputPersonal[index]}
-                                onChange={handleChange(index)}
+                                value={inputPersonal[info.label]}
+                                onChange={handleChange(info.label)}
                                 placeholder={placeholders.personal[info.label]}
                             />
                         ))}
@@ -91,11 +89,11 @@ function App() {
                         />
                     </Accordion>
                 </div>
-                <div className="outpus">
+                <div className="outputs">
                     <Preview
-                        dataPersonal={{ inputPersonal, basicInformation }}
+                        dataPersonal={inputPersonal}
                         dataExperience={{
-                            types: ["education", "career"],
+                            types: ["career", "education"],
                             expInfo,
                         }}
                     />

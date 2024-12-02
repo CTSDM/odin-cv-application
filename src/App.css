@@ -2,7 +2,6 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
 .logo {
@@ -46,4 +45,20 @@
 
 .container {
   display: flex;
+  justify-content: space-around;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.outputs {
+  border: 3px green solid;
+  aspect-ratio: 1 / 1.4142;
+  height: 700px;
+}
+
+.inputs {
+  border: 3px green solid;
 }

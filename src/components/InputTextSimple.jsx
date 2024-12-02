@@ -1,6 +1,4 @@
 export default function InputTextSimple({
-    name,
-    label,
     type,
     value,
     onChange,
@@ -8,10 +6,8 @@ export default function InputTextSimple({
 }) {
     return (
         <>
-            <label htmlFor={label}>{name}: </label>
             <input
                 type={type}
-                id={label}
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
