@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/FormExperience.css";
+import InputDate from "./InputDate";
 
 export default function FormExperience({
     info,
@@ -9,6 +10,7 @@ export default function FormExperience({
     handleGoBack,
     type,
     classValue,
+    placeholder,
 }) {
     const [infoState, setInfoState] = useState(info);
 
@@ -21,10 +23,13 @@ export default function FormExperience({
     function onClick() {
         const inputs = document.querySelectorAll(`input.${type}`);
         const textareaInput = document.querySelector(`textarea.${type}`);
+        const inputDates = document.querySelectorAll(`input.${type}.date`);
+        const dates = [...inputDates].map((input) => input.value);
         setInfoState({
             institution: inputs[0].value,
             title: inputs[1].value,
             skills: textareaInput.value,
+            dates: dates,
         });
     }
 
@@ -47,6 +52,7 @@ export default function FormExperience({
                     onChange={onChange}
                     onClick={onClick}
                     className={type}
+                    placeholder={placeholder.institution}
                     required
                 />
                 <label htmlFor="title">Title:</label>
@@ -57,6 +63,7 @@ export default function FormExperience({
                     onChange={onChange}
                     onClick={onClick}
                     className={type}
+                    placeholder={placeholder.title}
                     required
                 />
                 <label htmlFor="skills">Skills:</label>
@@ -69,10 +76,21 @@ export default function FormExperience({
                     onChange={onChange}
                     onClick={onClick}
                     className={type}
+                    placeholder={placeholder.skills}
                     required
                 />
+                {infoToSet.dates.map((date, index) => {
+                    return date !== "present" ? (
+                        <InputDate
+                            key={index}
+                            name={index}
+                            date={date}
+                            className={`${type} date`}
+                        />
+                    ) : null;
+                })}
                 <button type="submit" onClick={onClickChangeEditing}>
-                    Update
+                    Save
                 </button>
             </form>
         </div>

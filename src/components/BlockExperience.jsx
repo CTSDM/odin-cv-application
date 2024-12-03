@@ -11,29 +11,17 @@ export default function BlockExperience({
     updateInfo,
     placeholder,
 }) {
-    const [entriesId, setEntries] = useState(Object.keys(expInfo[type]));
+    const entriesWithoutEmptyEntry = Object.keys(expInfo[type]).slice(0, -1);
+    const [entriesId, setEntries] = useState(entriesWithoutEmptyEntry);
     const [formTarget, setFormTarget] = useState(entriesId[0]);
     const [editingStatus, setEditingStatus] = useState(false);
     const [classStatus, setClassStatus] = useState(["", "hidden"]);
 
     function addEntry() {
-        const newId = nanoid();
-        setEntries([...entriesId, newId]);
-        // we should create a template for adding new data
-        addExpInfo(
-            type,
-            {
-                institution: "", //placeholder.institution,
-                title: placeholder.title,
-                skills: placeholder.skills,
-            },
-            newId,
-        );
-        // when creating a new entry it goes directly into editing that entry
-        // so we need to change the formTarget and the editingStatus
+        // need to change the formTarget
         // however, we don't change the editingStatus here but we do it using a fake click
         // since the logic is built in that way
-        setFormTarget(newId);
+        setFormTarget("new");
         setClassStatus([classStatus[1], classStatus[0]]);
         const forms = document.querySelectorAll("form");
         const form = type === "career" ? forms[0] : forms[1];
@@ -45,16 +33,6 @@ export default function BlockExperience({
         const entryBlock = e.currentTarget.parentNode.parentNode;
         entriesModified.splice(entriesModified.indexOf(entryBlock.id), 1);
         setEntries(entriesModified);
-    }
-
-    function addExpInfo(type, info, id) {
-        const newInfo = {
-            institution: info.institution,
-            title: info.title,
-            skills: info.skills,
-        };
-        setEditingStatus(false);
-        updateInfo({ ...expInfo, [type]: { ...expInfo[type], [id]: newInfo } });
     }
 
     function handleEditEntry(e) {
@@ -79,9 +57,18 @@ export default function BlockExperience({
         const form = e.currentTarget;
         const formData = new FormData(form);
         const formProps = Object.fromEntries(formData);
+        let id = formTarget;
+        if (formTarget === "new") {
+            id = nanoid();
+            setEntries([...entriesId, id]);
+        }
+        const newInfo = {
+            ...formProps,
+            dates: [formProps[0], formProps[1]],
+        };
         updateInfo({
             ...expInfo,
-            [type]: { ...expInfo[type], [formTarget]: formProps },
+            [type]: { ...expInfo[type], [id]: newInfo },
         });
         setEditingStatus(false);
         setClassStatus([classStatus[1], classStatus[0]]);
@@ -118,6 +105,7 @@ export default function BlockExperience({
                 handleGoBack={handleGoBack}
                 updateExperience={handleUpdateExp}
                 classValue={classStatus[1]}
+                placeholder={placeholder}
             />
         </div>
     );

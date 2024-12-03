@@ -8,6 +8,15 @@ const experience = {
             skills: `VCO-based ADC designs
 MATLAB and SIMULINK modelling knowledge
 Hands-on experience in laboratory`,
+            dates: ["2019-12", "2024-09"],
+        },
+        // this is used to fill new entry forms
+        // it is not used for display
+        new: {
+            institution: "",
+            title: "",
+            skills: "",
+            dates: ["", ""],
         },
     },
     education: {
@@ -17,6 +26,15 @@ Hands-on experience in laboratory`,
             skills: `RF
 Feedback
 Project in 16nm in colaboration with Qualcomm`,
+            dates: ["2013-09", "2018-09"],
+        },
+        // this is used to fill new entry forms
+        // it is not used for display
+        new: {
+            institution: "",
+            title: "",
+            skills: "",
+            dates: ["", ""],
         },
     },
 };
