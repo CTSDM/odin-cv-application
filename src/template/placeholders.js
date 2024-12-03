@@ -9,7 +9,7 @@ const personal = {
 
 const experience = {
     career: {
-        institution: "Cloudfare",
+        institution: "Cloudflare",
         title: "Staff Engineer",
         skills: `Key player in the Distributed denial-of-service (DDoS) protection team`,
     },
