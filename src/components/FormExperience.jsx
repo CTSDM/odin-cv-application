@@ -11,13 +11,34 @@ export default function FormExperience({
     type,
     classValue,
     placeholder,
+    dateState,
+    onCheckbox,
 }) {
     const [infoState, setInfoState] = useState(info);
 
     function onChange(e) {
         const name = e.currentTarget.name;
         const value = e.currentTarget.value;
-        setInfoState({ ...infoState, [name]: value });
+        if (+name === 0 || +name === 1) {
+            const newDates = infoState.dates;
+            newDates[+name] = value;
+            setInfoState({ ...infoState, dates: newDates });
+        } else {
+            setInfoState({ ...infoState, [name]: value });
+        }
+    }
+
+    function handlerCheckbox(e) {
+        let lastDate = "present";
+        if (e.currentTarget.checked) onCheckbox([true, false]);
+        else {
+            onCheckbox([true, true]);
+            lastDate = "";
+        }
+        setInfoState({
+            ...infoState,
+            dates: [infoState.dates[0], lastDate],
+        });
     }
 
     function onClick() {
@@ -35,6 +56,10 @@ export default function FormExperience({
 
     const infoToSet = editing ? infoState : info;
     const className = classValue;
+    const presentRoleText =
+        type === "career"
+            ? "Currently working in this role"
+            : "Currently working towards this degree";
 
     return (
         <div className={`form ${className}`}>
@@ -43,7 +68,7 @@ export default function FormExperience({
                     Go back Arrow
                 </button>
             </div>
-            <form onClick={onClickChangeEditing} onSubmit={updateExperience}>
+            <form onSubmit={updateExperience}>
                 <label htmlFor="institution">Institution:</label>
                 <input
                     type="text"
@@ -80,15 +105,29 @@ export default function FormExperience({
                     required
                 />
                 {infoToSet.dates.map((date, index) => {
-                    return date !== "present" ? (
-                        <InputDate
-                            key={index}
-                            name={index}
-                            date={date}
-                            className={`${type} date`}
-                        />
-                    ) : null;
+                    return date !== "present"
+                        ? dateState[index] && (
+                              <InputDate
+                                  key={index}
+                                  name={index}
+                                  date={infoToSet.dates[index]}
+                                  className={`${type} date`}
+                                  onChange={onChange}
+                              />
+                          )
+                        : null;
                 })}
+                <div>
+                    <label htmlFor={`${type}-checkbox`}>
+                        {presentRoleText}
+                    </label>
+                    <input
+                        id={`${type}-checkbox`}
+                        type="checkbox"
+                        onChange={handlerCheckbox}
+                        checked={!dateState[1]}
+                    />
+                </div>
                 <button type="submit" onClick={onClickChangeEditing}>
                     Save
                 </button>

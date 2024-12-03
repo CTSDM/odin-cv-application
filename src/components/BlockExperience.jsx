@@ -16,6 +16,7 @@ export default function BlockExperience({
     const [formTarget, setFormTarget] = useState(entriesId[0]);
     const [editingStatus, setEditingStatus] = useState(false);
     const [classStatus, setClassStatus] = useState(["", "hidden"]);
+    const [dateState, setDateState] = useState([true, true]);
 
     function addEntry() {
         // need to change the formTarget
@@ -26,6 +27,7 @@ export default function BlockExperience({
         const forms = document.querySelectorAll("form");
         const form = type === "career" ? forms[0] : forms[1];
         inputClickAndFocus(form.children[1]);
+        updateDateStatusFromInfo(expInfo[type]["new"], setDateState);
     }
 
     function deleteEntry(e) {
@@ -36,20 +38,22 @@ export default function BlockExperience({
     }
 
     function handleEditEntry(e) {
-        const parentBox = e.currentTarget.parentNode.parentNode;
-        setFormTarget(parentBox.id);
+        const currentTarget = e.currentTarget.parentNode.parentNode.id;
+        setFormTarget(currentTarget);
         setClassStatus([classStatus[1], classStatus[0]]);
         // we also put the focus on the first input
         const forms = document.querySelectorAll("form");
         const form = type === "career" ? forms[0] : forms[1];
         inputClickAndFocus(form.children[1]);
+        updateDateStatusFromInfo(expInfo[type][currentTarget], setDateState);
     }
 
     function inputClickAndFocus(input) {
         setTimeout(() => {
             input.click();
             input.focus();
-        }, 50);
+            setEditingStatus(true);
+        }, 200);
     }
 
     function handleUpdateExp(e) {
@@ -62,9 +66,13 @@ export default function BlockExperience({
             id = nanoid();
             setEntries([...entriesId, id]);
         }
+
+        const dates = getDatesFromProps(formProps);
+        updateDateStatusFromForm(formProps, setDateState);
+
         const newInfo = {
             ...formProps,
-            dates: [formProps[0], formProps[1]],
+            dates: dates,
         };
         updateInfo({
             ...expInfo,
@@ -98,15 +106,32 @@ export default function BlockExperience({
             <FormExperience
                 info={expInfo[type][formTarget]}
                 editing={editingStatus}
-                onClickChangeEditing={() => {
-                    setEditingStatus(true);
-                }}
                 type={type}
                 handleGoBack={handleGoBack}
                 updateExperience={handleUpdateExp}
                 classValue={classStatus[1]}
                 placeholder={placeholder}
+                dateState={dateState}
+                onCheckbox={setDateState}
             />
         </div>
     );
+}
+
+function getDatesFromProps(formProps) {
+    // formProps is an Object
+    // They keys 0 and 1 refer to the start and end date of the position/studies
+    // If it is a current position, the key 0 is the only one defined
+    if (formProps[1]) return [formProps[0], formProps[1]];
+    else return [formProps[0], "present"];
+}
+
+function updateDateStatusFromForm(formProps, setDateState) {
+    if (formProps[1]) setDateState([true, true]);
+    else setDateState([true, false]);
+}
+
+function updateDateStatusFromInfo(info, setDateState) {
+    if (info.dates[1] === "present") setDateState([true, false]);
+    else setDateState([true, true]);
 }
