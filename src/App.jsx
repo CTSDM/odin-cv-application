@@ -1,12 +1,13 @@
 import "./App.css";
 import Accordion from "./components/Accordion.jsx";
 import InputTextSimple from "./components/InputTextSimple.jsx";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { basicInformation } from "./template/basicInfo.js";
 import BlockExperience from "./components/BlockExperience.jsx";
 import experience from "./template/experience.js";
 import Preview from "./components/Preview.jsx";
 import placeholders from "./template/placeholders.js";
+import { useReactToPrint } from "react-to-print";
 
 function App() {
     const [accordionStatus, setAccordionStatus] = useState({
@@ -39,6 +40,12 @@ function App() {
             setInputPersonal(auxValues);
         };
     }
+
+    const componentRef = useRef(null);
+    const printFn = useReactToPrint({
+        contentRef: componentRef,
+        documentTitle: "AwesomeFileName",
+    });
 
     return (
         <>
@@ -89,14 +96,20 @@ function App() {
                         />
                     </Accordion>
                 </div>
-                <div className="outputs">
+                <div>
                     <Preview
                         dataPersonal={inputPersonal}
                         dataExperience={{
                             types: ["career", "education"],
                             expInfo,
                         }}
+                        ref={componentRef}
                     />
+                </div>
+                <div>
+                    <button type="button" onClick={printFn}>
+                        Print!
+                    </button>
                 </div>
             </div>
         </>

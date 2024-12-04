@@ -1,11 +1,16 @@
 import PersonalInformation from "./PersonalInformation";
 import Experience from "./Experience";
+import { forwardRef } from "react";
 
-export default function Preview({ dataPersonal, dataExperience }) {
+const Preview = forwardRef((props, ref) => {
     return (
-        <>
-            <PersonalInformation data={dataPersonal} />
-            <Experience data={dataExperience} />
-        </>
+        <div className="outputs" ref={ref}>
+            <PersonalInformation data={props.dataPersonal} />
+            <Experience data={props.dataExperience} />
+        </div>
     );
-}
+});
+
+Preview.displayName = "Preview";
+
+export default Preview;
