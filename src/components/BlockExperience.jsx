@@ -32,9 +32,14 @@ export default function BlockExperience({
 
     function deleteEntry(e) {
         const entriesModified = [...entriesId];
-        const entryBlock = e.currentTarget.parentNode.parentNode;
-        entriesModified.splice(entriesModified.indexOf(entryBlock.id), 1);
+        const idToDelete = e.currentTarget.parentNode.parentNode.id;
+        entriesModified.splice(entriesModified.indexOf(idToDelete), 1);
         setEntries(entriesModified);
+
+        const newInfo = { ...expInfo };
+        delete newInfo[type][idToDelete];
+        updateInfo({ ...newInfo });
+        setFormTarget("new");
     }
 
     function handleEditEntry(e) {
@@ -104,20 +109,19 @@ export default function BlockExperience({
                 ))}
             </div>
             <FormExperience
-                info={expInfo[type][formTarget]}
-                editing={editingStatus}
-                type={type}
-                handleGoBack={handleGoBack}
-                updateExperience={handleUpdateExp}
                 classValue={classStatus[1]}
-                placeholder={placeholder}
                 dateState={dateState}
+                editing={editingStatus}
+                info={expInfo[type][formTarget]}
+                handleGoBack={handleGoBack}
                 onCheckbox={setDateState}
+                placeholder={placeholder}
+                type={type}
+                updateExperience={handleUpdateExp}
             />
         </div>
     );
 }
-
 function getDatesFromProps(formProps) {
     // formProps is an Object
     // They keys 0 and 1 refer to the start and end date of the position/studies

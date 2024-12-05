@@ -6,7 +6,6 @@ export default function FormExperience({
     info,
     updateExperience,
     editing,
-    onClickChangeEditing,
     handleGoBack,
     type,
     classValue,
@@ -128,9 +127,7 @@ export default function FormExperience({
                         checked={!dateState[1]}
                     />
                 </div>
-                <button type="submit" onClick={onClickChangeEditing}>
-                    Save
-                </button>
+                <button type="submit">Save</button>
             </form>
         </div>
     );
