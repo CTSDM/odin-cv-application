@@ -1,22 +1,27 @@
 const personal = {
-    location: "Seoul, South Korea",
-    ["first-name"]: "Joe",
-    ["last-name"]: "Doe",
-    email: "10xengineer@swe.com",
-    phone: "010-1234-5678",
-    profession: "Backend Developer",
+    location: "Location",
+    ["first-name"]: "First name",
+    ["last-name"]: "Last name",
+    email: "Email",
+    phone: "Phone number",
+    profession: "Profession",
 };
 
 const experience = {
     career: {
-        institution: "Cloudflare",
-        title: "Staff Engineer",
-        skills: `Key player in the Distributed denial-of-service (DDoS) protection team`,
+        institution: "Company",
+        title: "Position",
+        skills: `-Responsabilities
+-Implementations
+-Technologies
+...`,
     },
     education: {
-        institution: "MIT",
-        title: "Bachelor's degree in Electrical Engineering",
-        skills: `Several projects in Radio Frequency along with wireless communication devices.`,
+        institution: "Institution",
+        title: "Title or Degree",
+        skills: `-Highlighted coursework
+-Relevant projects
+-Relevant publications`,
     },
 };
 

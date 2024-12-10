@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 import { Fragment } from "react";
+import "../styles/Experience.css";
 
 export default function Experience({ data }) {
     return (
@@ -9,52 +10,64 @@ export default function Experience({ data }) {
                 let skillBlock, keys;
                 return (
                     <Fragment key={type}>
-                        <div>
-                            <span>{type[0].toUpperCase() + type.slice(1)}</span>
-                            <div>-------------------------------------</div>
+                        <div className="experience">
+                            {type[0].toUpperCase() + type.slice(1)}
                         </div>
-                        {pairsExp.map((pair) => {
-                            if (pair[0] === "new") return null;
-                            if (type === "career") {
-                                skillBlock = pair[1].skills.split("\n");
-                                keys = skillBlock.map(() => nanoid());
+                        <div className="separator"></div>
+                        <div
+                            className={
+                                type === "career" ? "block-experience" : ""
                             }
-                            return (
-                                <div
-                                    key={`${type}-${pair[1].institution}-${pair[1].title}`}
-                                >
-                                    <div>
-                                        {type === "career" ? (
+                        >
+                            {pairsExp.map((pair) => {
+                                if (pair[0] === "new") return null;
+                                if (type === "career") {
+                                    skillBlock = pair[1].skills.split("\n");
+                                    keys = skillBlock.map(() => nanoid());
+                                }
+                                return (
+                                    <div
+                                        key={`${type}-${pair[1].institution}-${pair[1].title}`}
+                                    >
+                                        <div className="position-summary">
+                                            {type === "career" ? (
+                                                <div>
+                                                    <span className="highlight">
+                                                        {pair[1].title}
+                                                    </span>
+                                                    {", "}
+                                                    {pair[1].institution}
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <span className="highlight">
+                                                        {pair[1].institution}
+                                                    </span>
+                                                    {", "}
+                                                    {pair[1].title}
+                                                </div>
+                                            )}
                                             <div>
-                                                {pair[1].title}
-                                                {", "}
-                                                {pair[1].institution}
+                                                {beautifyDate(pair[1].dates[0])}
+                                                {" - "}
+                                                {beautifyDate(pair[1].dates[1])}
                                             </div>
-                                        ) : (
-                                            <div>
-                                                {pair[1].institution}
-                                                {", "}
-                                                {pair[1].title}
-                                            </div>
-                                        )}
-                                        <div>
-                                            {beautifyDate(pair[1].dates[0])}
-                                            {" - "}
-                                            {beautifyDate(pair[1].dates[1])}
                                         </div>
+                                        <ul>
+                                            {skillBlock === undefined
+                                                ? null
+                                                : skillBlock.map(
+                                                      (entry, index) => (
+                                                          <li key={keys[index]}>
+                                                              {entry}
+                                                          </li>
+                                                      ),
+                                                  )}
+                                        </ul>
                                     </div>
-                                    <ul>
-                                        {skillBlock === undefined
-                                            ? null
-                                            : skillBlock.map((entry, index) => (
-                                                  <li key={keys[index]}>
-                                                      {entry}
-                                                  </li>
-                                              ))}
-                                    </ul>
-                                </div>
-                            );
-                        })}
+                                );
+                            })}
+                        </div>
                     </Fragment>
                 );
             })}

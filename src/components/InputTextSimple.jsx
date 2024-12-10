@@ -11,6 +11,7 @@ export default function InputTextSimple({
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
+                className={"input-info"}
             />
         </>
     );

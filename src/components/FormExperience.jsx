@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../styles/FormExperience.css";
 import InputDate from "./InputDate";
+import InputExperienceSimple from "./InputExperienceSimple";
 
 export default function FormExperience({
     info,
@@ -60,6 +61,8 @@ export default function FormExperience({
             ? "Currently working in this role"
             : "Currently working towards this degree";
 
+    const inputRepetitive = ["institution", "title", "skills"];
+
     return (
         <div className={`form ${className}`}>
             <div>
@@ -68,41 +71,21 @@ export default function FormExperience({
                 </button>
             </div>
             <form onSubmit={updateExperience}>
-                <label htmlFor="institution">Institution:</label>
-                <input
-                    type="text"
-                    name="institution"
-                    value={infoToSet.institution}
-                    onChange={onChange}
-                    onClick={onClick}
-                    className={type}
-                    placeholder={placeholder.institution}
-                    required
-                />
-                <label htmlFor="title">Title:</label>
-                <input
-                    type="text"
-                    name="title"
-                    value={infoToSet.title}
-                    onChange={onChange}
-                    onClick={onClick}
-                    className={type}
-                    placeholder={placeholder.title}
-                    required
-                />
-                <label htmlFor="skills">Skills:</label>
-                <textarea
-                    rows="4"
-                    cols="50"
-                    name="skills"
-                    style={{ whiteSpace: "pre-wrap" }}
-                    value={infoToSet.skills}
-                    onChange={onChange}
-                    onClick={onClick}
-                    className={type}
-                    placeholder={placeholder.skills}
-                    required
-                />
+                {inputRepetitive.map((input) => {
+                    return (
+                        <div key={input}>
+                            <InputExperienceSimple
+                                value={infoToSet[input]}
+                                name={input}
+                                onChange={onChange}
+                                onClick={onClick}
+                                className={type}
+                                placeholder={placeholder[input]}
+                                type={type}
+                            />
+                        </div>
+                    );
+                })}
                 {infoToSet.dates.map((date, index) => {
                     return date !== "present"
                         ? dateState[index] && (

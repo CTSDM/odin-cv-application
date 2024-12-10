@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/App.css";
 import Accordion from "./components/Accordion.jsx";
 import InputTextSimple from "./components/InputTextSimple.jsx";
 import { useState, useRef } from "react";
@@ -8,6 +8,7 @@ import experience from "./template/experience.js";
 import Preview from "./components/Preview.jsx";
 import placeholders from "./template/placeholders.js";
 import { useReactToPrint } from "react-to-print";
+import personalInfo from "./template/personalInfo.js";
 
 function App() {
     const [accordionStatus, setAccordionStatus] = useState({
@@ -23,14 +24,7 @@ function App() {
 
     const [expInfo, setExpInfo] = useState(experience);
 
-    const [inputPersonal, setInputPersonal] = useState(() => {
-        const auxObj = {};
-        basicInformation.forEach(
-            (entry) =>
-                (auxObj[entry.label] = placeholders.personal[entry.label]),
-        );
-        return auxObj;
-    });
+    const [inputPersonal, setInputPersonal] = useState(personalInfo);
 
     // use of currying function!
     function handleChange(fieldname) {
@@ -49,7 +43,7 @@ function App() {
 
     return (
         <>
-            <div>
+            <div className="title">
                 <h1>CV Generator</h1>
             </div>
             <div className="container">
@@ -96,7 +90,7 @@ function App() {
                         />
                     </Accordion>
                 </div>
-                <div>
+                <div className="preview-print-block">
                     <Preview
                         dataPersonal={inputPersonal}
                         dataExperience={{
@@ -105,11 +99,11 @@ function App() {
                         }}
                         ref={componentRef}
                     />
-                </div>
-                <div>
-                    <button type="button" onClick={printFn}>
-                        Print!
-                    </button>
+                    <div className="print-button">
+                        <button type="button" onClick={printFn}>
+                            Print!
+                        </button>
+                    </div>
                 </div>
             </div>
         </>

@@ -26,7 +26,7 @@ export default function BlockExperience({
         setClassStatus([classStatus[1], classStatus[0]]);
         const forms = document.querySelectorAll("form");
         const form = type === "career" ? forms[0] : forms[1];
-        inputClickAndFocus(form.children[1]);
+        inputClickAndFocus(form.querySelector("input"));
         updateDateStatusFromInfo(expInfo[type]["new"], setDateState);
     }
 
@@ -49,7 +49,7 @@ export default function BlockExperience({
         // we also put the focus on the first input
         const forms = document.querySelectorAll("form");
         const form = type === "career" ? forms[0] : forms[1];
-        inputClickAndFocus(form.children[1]);
+        inputClickAndFocus(form.querySelector("input"));
         updateDateStatusFromInfo(expInfo[type][currentTarget], setDateState);
     }
 
@@ -58,7 +58,7 @@ export default function BlockExperience({
             input.click();
             input.focus();
             setEditingStatus(true);
-        }, 200);
+        }, 20);
     }
 
     function handleUpdateExp(e) {

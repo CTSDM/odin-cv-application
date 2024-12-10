@@ -1,6 +1,7 @@
 import PersonalInformation from "./PersonalInformation";
 import Experience from "./Experience";
 import { forwardRef } from "react";
+import "../styles/Preview.css";
 
 const Preview = forwardRef((props, ref) => {
     return (
