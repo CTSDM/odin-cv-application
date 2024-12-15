@@ -8,6 +8,7 @@
   outline: none;
   transition: 0.4s;
   border: solid 3px skyblue;
+  display: grid;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
@@ -19,6 +20,12 @@
 /* Style the accordion panel. Note: hidden by default */
 .panel {
   padding: 0 18px;
-  display: none;
+  display: grid;
+  justify-content: center;
   overflow: hidden;
+  gap: 0.5rem;
+}
+
+.panel-hide {
+  display: none;
 }

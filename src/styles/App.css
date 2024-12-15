@@ -1,7 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
 }
 
 .logo {
@@ -46,19 +48,27 @@
 .container {
   display: flex;
   justify-content: space-around;
+  gap: 100px;
+  flex-wrap: wrap;
 }
 
-ul {
-  margin: 0;
-  padding: 0;
-}
-
-.outputs {
-  border: 3px green solid;
-  aspect-ratio: 1 / 1.4142;
-  height: 700px;
-}
 
 .inputs {
-  border: 3px green solid;
+  min-width: 250px;
+  max-width: 400px;
+  font-size: 17px;
+}
+
+.preview-print-block {
+  position: relative;
+}
+
+.print-button {
+  position: absolute;
+  top: -50px;
+  left: 87%;
+}
+
+.title {
+  text-align: center;
 }

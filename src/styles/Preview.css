@@ -1,0 +1,7 @@
+.outputs {
+  border: 3px green solid;
+  aspect-ratio: 1 / 1.4142;
+  width: 600px;
+  padding: 60px 45px;
+  font-size: 14px;
+}
