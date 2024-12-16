@@ -4,11 +4,21 @@ const experience = {
     career: {
         [nanoid()]: {
             institution: "Apple",
-            title: "Analog Engineer",
-            skills: `VCO-based ADC designs
-MATLAB and SIMULINK modelling knowledge
-Hands-on experience in laboratory`,
+            title: "Senior Analog Engineer",
+            skills: `Knowledge in ADCs for pressure sensors.
+Several tape outs in 16nm CMOS.
+Participation in system level design.
+Several patents in ADC architectures.`,
             dates: ["2019-12", "2024-09"],
+        },
+        // this is used to fill new entry forms
+        // it is not used for display
+        [nanoid()]: {
+            institution: "Qualcomm",
+            title: "Analog Engineer",
+            skills: `Transistor level simulation.
+Hands-on experience in laboratory measurements.`,
+            dates: ["2018-09", "2019-12"],
         },
         // this is used to fill new entry forms
         // it is not used for display
@@ -23,9 +33,9 @@ Hands-on experience in laboratory`,
         [nanoid()]: {
             institution: "MIT",
             title: "PhD in Electrical Engineering",
-            skills: `RF
-Feedback
-Project in 16nm in colaboration with Qualcomm`,
+            skills: `Several projects in RF.
+Supervised several undergrad students.
+Project in 16nm in colaboration with Qualcomm.`,
             dates: ["2013-09", "2018-09"],
         },
         // this is used to fill new entry forms
