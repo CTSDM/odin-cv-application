@@ -1,4 +1,7 @@
-export default function InputDate({ date, className, name, onChange }) {
+export default function InputDate({ date: date, className, name, onChange }) {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
     return (
         <>
             <input
@@ -7,6 +10,8 @@ export default function InputDate({ date, className, name, onChange }) {
                 onChange={onChange}
                 value={date}
                 name={name}
+                min={"1950-01"}
+                max={currentYear + "-" + currentMonth}
                 required
             />
         </>
