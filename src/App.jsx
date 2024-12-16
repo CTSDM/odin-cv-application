@@ -4,11 +4,10 @@ import InputTextSimple from "./components/InputTextSimple.jsx";
 import { useState, useRef } from "react";
 import { basicInformation } from "./template/basicInfo.js";
 import BlockExperience from "./components/BlockExperience.jsx";
-import experience from "./template/experience.js";
+import { experience, personalInfo } from "./template/config.js";
 import Preview from "./components/Preview.jsx";
 import placeholders from "./template/placeholders.js";
 import { useReactToPrint } from "react-to-print";
-import personalInfo from "./template/personalInfo.js";
 
 function App() {
     const [accordionStatus, setAccordionStatus] = useState({
@@ -38,7 +37,7 @@ function App() {
     const componentRef = useRef(null);
     const printFn = useReactToPrint({
         contentRef: componentRef,
-        documentTitle: "AwesomeFileName",
+        documentTitle: "CV",
     });
 
     return (

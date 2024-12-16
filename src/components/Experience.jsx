@@ -1,13 +1,13 @@
 import { nanoid } from "nanoid";
 import { Fragment } from "react";
 import "../styles/Experience.css";
+import { beautifyDate } from "../utils/utils.js";
 
 export default function Experience({ data }) {
     return (
         <div>
             {data.types.map((type) => {
                 const pairsExp = Object.entries(data.expInfo[type]);
-                let skillBlock, keys;
                 return (
                     <Fragment key={type}>
                         <div className="experience">
@@ -21,10 +21,8 @@ export default function Experience({ data }) {
                         >
                             {pairsExp.map((pair) => {
                                 if (pair[0] === "new") return null;
-                                if (type === "career") {
-                                    skillBlock = pair[1].skills.split("\n");
-                                    keys = skillBlock.map(() => nanoid());
-                                }
+                                const skillBlock = pair[1].skills.split("\n");
+                                const keys = skillBlock.map(() => nanoid());
                                 return (
                                     <div
                                         key={`${type}-${pair[1].institution}-${pair[1].title}`}
@@ -73,24 +71,4 @@ export default function Experience({ data }) {
             })}
         </div>
     );
-}
-
-function beautifyDate(dateString) {
-    if (dateString === "present") return "Present";
-    const monthsList = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
-    const dateArr = dateString.split("-");
-    return `${monthsList[+dateArr[1] - 1]} ${dateArr[0]}`;
 }

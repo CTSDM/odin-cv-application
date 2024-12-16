@@ -39,4 +39,13 @@ Project in 16nm in colaboration with Qualcomm`,
     },
 };
 
-export default experience;
+const personalInfo = {
+    location: "Seoul, South Korea",
+    ["first-name"]: "Jon",
+    ["last-name"]: "Doe",
+    email: "10xengineer@swe.com",
+    phone: "010-1234-5678",
+    profession: "Engineer",
+};
+
+export { experience, personalInfo };
