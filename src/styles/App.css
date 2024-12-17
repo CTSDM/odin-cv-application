@@ -72,3 +72,7 @@
 .title {
   text-align: center;
 }
+
+.container-outputs {
+  border: 3px cyan solid;
+}

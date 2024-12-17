@@ -90,14 +90,16 @@ function App() {
                     </Accordion>
                 </div>
                 <div className="preview-print-block">
-                    <Preview
-                        dataPersonal={inputPersonal}
-                        dataExperience={{
-                            types: ["career", "education"],
-                            expInfo,
-                        }}
-                        ref={componentRef}
-                    />
+                    <div className="container-outputs">
+                        <Preview
+                            dataPersonal={inputPersonal}
+                            dataExperience={{
+                                types: ["career", "education"],
+                                expInfo,
+                            }}
+                            ref={componentRef}
+                        />
+                    </div>
                     <div className="print-button">
                         <button type="button" onClick={printFn}>
                             Print!
