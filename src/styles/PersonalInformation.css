@@ -1,16 +1,19 @@
 .personal-sub {
   display: flex;
   justify-content: space-evenly;
+  white-space: pre;
 }
 
 .fullname {
   font-size: 25px;
   font-weight: 700;
   text-align: center;
+  white-space: pre;
 }
 
 .profession {
   font-size: 15px;
   font-weight: 550;
   text-align: center;
+  white-space: pre;
 }

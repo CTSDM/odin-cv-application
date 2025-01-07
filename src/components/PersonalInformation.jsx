@@ -8,9 +8,9 @@ export default function PersonalInformation({ data }) {
             </div>
             <div className="profession">{data.profession}</div>
             <div className="personal-sub">
-                <span>{data.location}</span>
-                <span>{data.email}</span>
-                <span>{data.phone}</span>
+                <span>{data.location ? data.location : " "}</span>
+                <span>{data.email ? data.email : " "}</span>
+                <span>{data.phone ? data.phone : " "}</span>
             </div>
         </div>
     );
